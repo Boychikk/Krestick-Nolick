@@ -51,7 +51,7 @@ const resetField = async () => {
     <div v-if="loading">Loading...</div>
     <div v-else class="grid">
       <div class="square" v-for="i in fielddata" :key="i.id" @click="setValue(i.id)">
-        {{ i.content }}
+        {{ i.content.replace("-1", "") }}
       </div>
     </div>
   </div>
