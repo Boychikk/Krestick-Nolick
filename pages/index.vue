@@ -88,8 +88,8 @@ body, html {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;;
 }
 .square:hover {
- background-color: gold;
-  box-shadow: 0 0 20px 10px rgba(255, 215, 0, 0.7);
+ background-color: rgba(0, 220, 130, 0.5);
+  box-shadow: 0 0 20px 10px #108775;
 
 }
 
