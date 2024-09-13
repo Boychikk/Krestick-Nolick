@@ -104,6 +104,7 @@ body, html {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  margin: 0;
 }
 
 .center {
@@ -119,6 +120,10 @@ body, html {
   grid-template-columns: repeat(3, 1fr);
   width: 600px;
   border: 2px solid black;
+
+  @media screen and (max-width: 700px){
+    width: calc(100vw - 40px);
+  }
 }
 
 .square {
@@ -133,6 +138,10 @@ body, html {
   align-items: center;
   font-size: 100px;
   font-weight: 700;
+
+  @media screen and (max-width: 700px){
+    height: 130px;
+  }
 }
 .square:hover {
  background-color: rgba(0, 220, 130, 0.5);
