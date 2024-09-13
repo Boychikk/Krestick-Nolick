@@ -67,7 +67,6 @@ const checkWinner = () => {
   let winner = "x";
   for (const el of lines) {
     el.forEach((item) => {
-      console.log(fielddata.value[item]?.content + " " + fielddata.value[item]?.id)
       if (fielddata.value[item]?.content !== winner) {
         winner = "0";
       }
