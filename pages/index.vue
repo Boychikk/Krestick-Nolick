@@ -24,7 +24,7 @@ const getSymbol = computed(() => {
 const getFieldData = async () => {
   const result = await $fetch<{ data: FieldData[] }>(`https://express-sb.vercel.app/get-field-data`)
   fielddata.value = result.data
-  setTimeout(getFieldData, 1500)
+  setTimeout(getFieldData, 2500)
 }
 
 const setValue = async (id: number | string) => {
