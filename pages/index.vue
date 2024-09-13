@@ -85,7 +85,12 @@ body, html {
   text-align: center;
   height: 200px;
   word-break: break-all;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;
+  font-weight: 700;
 }
 .square:hover {
  background-color: rgba(0, 220, 130, 0.5);
