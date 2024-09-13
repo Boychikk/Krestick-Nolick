@@ -109,7 +109,10 @@ button {
   width: 80px;
   height: 30px;
   border-radius: 4px;
+  transition: transform 0.5s ease;
 }
-
+button:hover {
+  transform: scale(1.05);
+}
 
 </style>
