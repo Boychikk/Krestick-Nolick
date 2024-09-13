@@ -88,8 +88,7 @@ const checkWinner = () => {
     <div>
       <div v-if="loading">Loading...</div>
       <div v-else class="grid">
-        <div class="square" v-for="i in fielddata" :key="i.id" @click="setValue(i.id)">
-          {{ i.content.replace("-1", "") }}
+        <div class="square" v-for="i in fielddata" :key="i.id" @click="setValue(i.id)" v-html="i.content.replace('-1', '')">
         </div>
       </div>
     </div>
@@ -117,7 +116,7 @@ body, html {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  width: 600px;
+  width: 606px;
   border: 2px solid black;
 
   @media screen and (max-width: 700px){
@@ -129,6 +128,7 @@ body, html {
   border-right: 2px solid black;
   border-bottom: 2px solid black;
   text-align: center;
+  width: 200px;
   height: 200px;
   word-break: break-all;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -138,7 +138,14 @@ body, html {
   font-size: 100px;
   font-weight: 700;
 
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   @media screen and (max-width: 700px){
+    width: 100%;
     height: 130px;
   }
 }
