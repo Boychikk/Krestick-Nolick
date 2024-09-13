@@ -42,6 +42,7 @@ const setValue = async (id: number | string) => {
 
 const resetField = async () => {
   await $fetch("https://express-sb.vercel.app/reset-game", { method: "POST" })
+  fielddata.value.map((el) => { return { ...el, content: -1 }})
 }
 </script>
 
