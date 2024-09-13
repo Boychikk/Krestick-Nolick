@@ -6,10 +6,24 @@ interface FieldData {
 
 const fielddata = ref<FieldData[]>([]);
 const loading = ref(true);
+const winnerMsg = ref("");
 onMounted(async () => {
   await getFieldData();
   loading.value = false;
 });
+
+const lines = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+  [0, 4, 8],
+  [2, 4, 6]
+];
 
 const getSymbol = computed(() => {
   let xAmount = 0;
@@ -28,6 +42,7 @@ const getFieldData = async () => {
 }
 
 const setValue = async (id: number | string) => {
+  winnerMsg.value = "";
   const newEl = {
     id,
     content: getSymbol.value,
@@ -36,25 +51,51 @@ const setValue = async (id: number | string) => {
     method: "POST",
     body: newEl
   })
-  console.log(fielddata.value.findIndex(el => el.id == newEl.id))
   fielddata.value[fielddata.value.findIndex(el => el.id == newEl.id)] = newEl;
+  if (checkWinner()) {
+    winnerMsg.value = `${checkWinner()} победил`;
+    await resetField();
+  }
 }
 
 const resetField = async () => {
   await $fetch("https://express-sb.vercel.app/reset-game", { method: "POST" })
   fielddata.value.map((el) => { return { ...el, content: -1 }})
 }
+
+const checkWinner = () => {
+  let winner = "x";
+  for (const el of lines) {
+    el.forEach((item) => {
+      console.log(fielddata.value[item]?.content + " " + fielddata.value[item]?.id)
+      if (fielddata.value[item]?.content !== winner) {
+        winner = "0";
+      }
+    })
+    if (winner === "x") break;
+    el.forEach((item) => {
+      if (fielddata.value[item]?.content !== winner) {
+        winner = "";
+      }
+    })
+    if (winner === "0") break;
+  }
+  return winner;
+}
 </script>
 
 <template>
   <div class="center">
-    <button @click="resetField">Рестарт</button>
-    <div v-if="loading">Loading...</div>
-    <div v-else class="grid">
-      <div class="square" v-for="i in fielddata" :key="i.id" @click="setValue(i.id)">
-        {{ i.content.replace("-1", "") }}
+    <div>
+      <div v-if="loading">Loading...</div>
+      <div v-else class="grid">
+        <div class="square" v-for="i in fielddata" :key="i.id" @click="setValue(i.id)">
+          {{ i.content.replace("-1", "") }}
+        </div>
       </div>
     </div>
+    <button @click="resetField">Рестарт</button>
+    <div class="winner">{{winnerMsg}}</div>
   </div>
 </template>
 
@@ -69,6 +110,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
 }
 
@@ -110,6 +152,9 @@ button {
   height: 30px;
   border-radius: 4px;
 }
-
+.winner {
+  font-size: 50px;
+  font-weight: 700;
+}
 
 </style>
